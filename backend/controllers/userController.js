@@ -30,7 +30,7 @@ const users = {
 
 
   loginUser: asyncHandler(async (req, res) => {
-    res.send('login route')
+    const { email, password } = req.body
   })
 }
 
