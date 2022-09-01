@@ -10,14 +10,13 @@ const protectRoute = asyncHandler(async (req, res, next) => {
     try {
       // Get token from header. req.headers is an object with constains an authorization key.
       // The value of this key is a string with this format 'Beared eyJhbGciOiJIUzI1NiI...'
-      // We want the 2nd part of the string (eyJhbGc...) which is the token.
+      // We want the 2nd part of the string (eyJhbGciOiJIUzI1NiI...) which is the token.
       const token = req.headers.authorization.split(' ')[1]
-      // Decode the token, so we can get the user id
-      const decoded = jwt.verify(token, process.env.JWT_SECRET)
-      // Get the user from the id
-      req.user = await User.findById(decoded.id).select('-password')
+      const decoded = jwt.verify(token, process.env.JWT_SECRET)        // Decode the token, so we can get the user id
+      req.user = await User.findById(decoded.id).select('-password')   // Get the user from the id
       next()
-    } catch (err) {
+    }
+    catch (err) {
       console.log(err)
       res.status(401)
       throw new Error('Not authorized')
