@@ -55,7 +55,7 @@ const users = {
 
 
   getMe: asyncHandler(async (req, res) => {
-
+    res.send("pepe")
   })
 }
 
