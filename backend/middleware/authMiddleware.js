@@ -12,7 +12,9 @@ const protectRoute = asyncHandler(async (req, res, next) => {
       // The value of this key is a string with this format 'Beared eyJhbGciOiJIUzI1NiI...'
       // We want the 2nd part of the string (eyJhbGc...) which is the token.
       const token = req.headers.authorization.split(' ')[1]
+      // Decode the token, so we can get the user id
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
+      // Get the user from the id
       req.user = await User.findById(decoded.id).select('-password')
       next()
     } catch (err) {
