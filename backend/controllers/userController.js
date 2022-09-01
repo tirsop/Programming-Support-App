@@ -55,7 +55,13 @@ const users = {
 
 
   getMe: asyncHandler(async (req, res) => {
-    res.send("pepe")
+    // we have access to the user with req.user, which is set in middleware/authMiddleware.js
+    const user = {
+      id: req.user._id,
+      email: req.user.email,
+      name: req.user.name
+    }
+    res.status(200).json(user)
   })
 }
 
