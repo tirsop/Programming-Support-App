@@ -1,6 +1,7 @@
 import asyncHandler from "../middleware/asyncHandler.js"
 import User from "../models/userModel.js"
 import bcrypt from 'bcryptjs'
+import generateToken from "../middleware/generateToken.js"
 
 
 const users = {
@@ -25,7 +26,8 @@ const users = {
     res.json({
       _id: user._id,
       name,
-      email
+      email,
+      token: generateToken(user._id)
     })
   }),
 
@@ -41,7 +43,8 @@ const users = {
       res.json({
         _id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        token: generateToken(user._id)
       })
     } else {
       res.status(401)
