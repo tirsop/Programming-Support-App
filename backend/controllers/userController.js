@@ -50,6 +50,12 @@ const users = {
       res.status(401)
       throw new Error("Invalid email or credentials")
     }
+  }),
+
+
+
+  getMe: asyncHandler(async (req, res) => {
+
   })
 }
 

@@ -9,5 +9,8 @@ router.route('/')
 router.route('/login')
   .post(users.loginUser)
 
+router.route('/me')
+  .get(users.getMe)
+
 export default router
 
