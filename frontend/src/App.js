@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Header from "./components/Header"
 // pages
 import Home from "./pages/Home"
 import Login from "./pages/Login"
@@ -9,6 +10,7 @@ function App() {
     <>
       <BrowserRouter>
         <div className="container">
+          <Header />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
