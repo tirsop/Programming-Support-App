@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { FaUser } from "react-icons/fa"
 import { toast } from "react-toastify"
+import { useDispatch, useSelector } from 'react-redux'
+import { register } from "../features/auth/authSlice"
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -12,6 +14,10 @@ export default function Register() {
 
   const { name, email, password, password2 } = formData
 
+  const dispatch = useDispatch()
+
+  const { user, isLoading, isSuccess, message } = useSelector(state => state.auth)
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -22,8 +28,16 @@ export default function Register() {
   const onSubmit = (e) => {
     e.preventDefault()
     if (password !== password2) {
-      toast.error('Passwords do not match')
+      setFormData(prevState => ({
+        ...prevState,
+        password: '',
+        password2: ''
+      }))
+      return toast.error('Passwords do not match')    // and make blank the passwords spaces
     }
+
+    const userData = { name, email, password }
+    dispatch(register(userData))
   }
 
   return (
