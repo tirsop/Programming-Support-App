@@ -12,7 +12,6 @@ export default function Register() {
     password: '',
     password2: ''
   })
-
   const { name, email, password, password2 } = formData
 
   const dispatch = useDispatch()
@@ -44,7 +43,6 @@ export default function Register() {
       }))
       return toast.error('Passwords do not match')    // and make blank the passwords spaces
     }
-
     const userData = { name, email, password }
     dispatch(register(userData))
   }
