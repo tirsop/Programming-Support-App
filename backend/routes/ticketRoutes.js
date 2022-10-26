@@ -5,7 +5,7 @@ import protectRoute from '../middleware/authMiddleware.js'
 
 const router = express.Router()
 
-router.route('/tickets')
+router.route('/')
   .get(protectRoute, tickets.index)
   .post(protectRoute, tickets.createTickets)
 
