@@ -1,4 +1,5 @@
 import express from 'express'
+import tickets from '../controllers/ticketController.js'
 import protectRoute from '../middleware/authMiddleware.js'
 
 
