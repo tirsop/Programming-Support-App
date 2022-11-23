@@ -40,7 +40,28 @@ const tickets = {
       description,
       user: user._id
     })
+    await ticket.save()
     res.status(201).json(ticket)
+  }),
+
+
+
+
+
+  showTicket: asyncHandler(async (req, res) => {
+    // since it's a protectedRoute, we set the req.user in the authModdleware.js.
+    // thanks to that, we cann now access the user
+    const user = await User.findById(req.user.id)
+    if (!user) {
+      res.status(401)   // Un-authorized
+      throw new Error('User not found')
+    }
+    const ticket = await Ticket.findById(req.params.id)
+    if (!ticket) {
+      res.status(404)
+      throw new Error('Ticket not found')
+    }
+    console.log(ticket.user)
   })
 }
 
