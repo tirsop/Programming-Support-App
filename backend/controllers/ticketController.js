@@ -27,9 +27,7 @@ const tickets = {
       res.status(400)   // Bad Request
       throw new Error("Please include all fields.")
     }
-    // since it's a protectedRoute, we set the req.user in the authModdleware.js.
-    // thanks to that, we can now access the user
-    const user = await User.findById(req.user.id)
+    const user = await User.findById(req.user.id)   // lines 8, 9
     if (!user) {
       res.status(401)   // Un-authorized
       throw new Error('User not found')
@@ -49,9 +47,7 @@ const tickets = {
 
   // @desc get 1 user's ticket details - @route GET api/tickets/:id - @access private
   showTicket: asyncHandler(async (req, res) => {
-    // since it's a protectedRoute, we set the req.user in the authModdleware.js.
-    // thanks to that, we can now access the user
-    const user = await User.findById(req.user.id)
+    const user = await User.findById(req.user.id)   // lines 8, 9
     const ticket = await Ticket.findById(req.params.id)
     if (!ticket) {
       res.status(404)
@@ -63,15 +59,46 @@ const tickets = {
       throw new Error('User not found')
     }
     res.status(202).json(ticket)
-    console.log(typeof ticket.user.toString())
+  }),
+
+
+
+  // @desc delete 1 user ticket - @route DELETE api/tickets/:id - @access private
+  destroyTicket: asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user.id)   // lines 8, 9
+    const ticket = await Ticket.findById(req.params.id)
+    if (!ticket) {
+      res.status(404)
+      throw new Error('Ticket not found')
+    }
+    // if there's no user or|| the ticket doesn't belong to the user, we throw 401
+    if (!user || ticket.user.toString() !== user.id) {
+      res.status(401)   // Un-authorized
+      throw new Error('User not found')
+    }
+    await ticket.remove()
+    res.status(200).json({ success: true })
   }),
 
 
 
 
-  destroyTicket: asyncHandler(async (req, res) => {
-
-  })
+  // @desc update 1 user ticket - @route PUT api/tickets/:id - @access private
+  updateTicket: asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user.id)   // lines 8, 9
+    const ticket = await Ticket.findById(req.params.id)
+    if (!ticket) {
+      res.status(404)
+      throw new Error('Ticket not found')
+    }
+    // if there's no user or|| the ticket doesn't belong to the user, we throw 401
+    if (!user || ticket.user.toString() !== user.id) {
+      res.status(401)   // Un-authorized
+      throw new Error('User not found')
+    }
+    const updatedTicket = await Ticket.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.status(200).json(updatedTicket)
+  }),
 }
 
 export default tickets

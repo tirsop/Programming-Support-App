@@ -11,6 +11,8 @@ router.route('/')
 
 router.route('/:id')
   .get(protectRoute, tickets.showTicket)
+  .delete(protectRoute, tickets.destroyTicket)
+  .put(protectRoute, tickets.updateTicket)
 
 
 export default router
