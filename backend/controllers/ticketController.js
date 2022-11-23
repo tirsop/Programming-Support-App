@@ -6,7 +6,7 @@ import Ticket from "../models/ticketModel.js"
 const tickets = {
   index: asyncHandler(async (req, res) => {
     // since it's a protectedRoute, we set the req.user in the authModdleware.js.
-    // thanks to that, we cann now access the user
+    // thanks to that, we can now access the user
     const user = await User.findById(req.user.id)
     if (!user) {
       res.status(401)   // Un-authorized
@@ -28,7 +28,7 @@ const tickets = {
       throw new Error("Please include all fields.")
     }
     // since it's a protectedRoute, we set the req.user in the authModdleware.js.
-    // thanks to that, we cann now access the user
+    // thanks to that, we can now access the user
     const user = await User.findById(req.user.id)
     if (!user) {
       res.status(401)   // Un-authorized
@@ -47,21 +47,30 @@ const tickets = {
 
 
 
-
+  // @desc get 1 user's ticket details - @route GET api/tickets/:id - @access private
   showTicket: asyncHandler(async (req, res) => {
     // since it's a protectedRoute, we set the req.user in the authModdleware.js.
-    // thanks to that, we cann now access the user
+    // thanks to that, we can now access the user
     const user = await User.findById(req.user.id)
-    if (!user) {
-      res.status(401)   // Un-authorized
-      throw new Error('User not found')
-    }
     const ticket = await Ticket.findById(req.params.id)
     if (!ticket) {
       res.status(404)
       throw new Error('Ticket not found')
     }
-    console.log(ticket.user)
+    // if there's no user or|| the ticket doesn't belong to the user, we throw 401
+    if (!user || ticket.user.toString() !== user.id) {
+      res.status(401)   // Un-authorized
+      throw new Error('User not found')
+    }
+    res.status(202).json(ticket)
+    console.log(typeof ticket.user.toString())
+  }),
+
+
+
+
+  destroyTicket: asyncHandler(async (req, res) => {
+
   })
 }
 

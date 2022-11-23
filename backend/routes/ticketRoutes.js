@@ -9,5 +9,8 @@ router.route('/')
   .get(protectRoute, tickets.index)
   .post(protectRoute, tickets.createTickets)
 
+router.route('/:id')
+  .get(protectRoute, tickets.showTicket)
+
 
 export default router
