@@ -15,7 +15,7 @@ export default function NewTicket() {
 
   const [name] = useState(user.name)
   const [email] = useState(user.email)
-  const [product, setProduct] = useState('Japan')
+  const [product, setProduct] = useState('japan')
   const [description, setDescription] = useState('')
 
 
