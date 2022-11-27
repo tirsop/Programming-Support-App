@@ -18,7 +18,7 @@ const createTicket = async (ticketData, token) => {
 
 
 
-const getTcikets = async (token) => {
+const getTickets = async (token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`
@@ -34,6 +34,6 @@ const getTcikets = async (token) => {
 
 const ticketService = {
   createTicket,
-  getTcikets
+  getTickets
 }
 export default ticketService

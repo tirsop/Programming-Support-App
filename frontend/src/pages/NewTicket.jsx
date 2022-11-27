@@ -9,7 +9,7 @@ import { createTicket, reset } from "../features/tickets/ticketSlice"
 
 export default function NewTicket() {
   const { user } = useSelector(state => state.auth)
-  const { isLoading, isSuccess, isError, message } = useSelector(state => state.ticket)
+  const { isLoading, isSuccess, isError, message } = useSelector(state => state.tickets)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
