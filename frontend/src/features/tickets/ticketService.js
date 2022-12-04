@@ -37,9 +37,7 @@ const showTicket = async (ticketId, token) => {
       Authorization: `Bearer ${token}`
     }
   }
-  console.log(API_URL + ticketId)
   const response = await axios.get(API_URL + ticketId, config)
-  // console.log({ response })
   return response.data
 }
 
